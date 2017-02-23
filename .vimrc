@@ -3,9 +3,18 @@
 "只要在.vimrc中加入下列指令
 "folding:
 "set foldenable
-"set foldmethod=syntax
-"set foldcolumn=0
+set foldmethod=syntax
+set foldcolumn=0
 "nnoremap @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')
+
+nnoremap <silent> <Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+inoremap <F2> <C-O>za
+nnoremap <F2> za
+onoremap <F2> <C-C>za
+vnoremap <F2> zf
 
 
 " 檔案編碼
@@ -20,7 +29,12 @@ colorscheme torte
 
 if has("syntax")
   syntax on
+  syntax enable
 endif
+
+
+" indent when moving to the next line while writing code
+set autoindent
 
 
 " Search result highlight
@@ -52,6 +66,8 @@ set formatoptions+=t
 "  將文件中 Tab 取代成 Space
 "  所有 Tab 用4個 Space 取代
 set tabstop=4
+"set ts=4
+
 set shiftwidth=4
 set expandtab
 
@@ -66,12 +82,18 @@ set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 "set cursorline   " 顯示目前的游標位置
 
+" Status bar settings
+set laststatus=2
+"set statusline=%f "tail of the filename
 set statusline=%4*%<\%m%<[%f\%r%h%w]\[%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]
 
 set list
 set listchars=tab:>·,trail:·
 "highlight SpecialKey guifg=DarkGraya "修改 TAB 與行尾空白字元的顏色
 
+
+" enable all Python syntax highlighting features
+let python_highlight_all = 1
 
 
 " Set over length color
