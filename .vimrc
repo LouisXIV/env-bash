@@ -1,8 +1,192 @@
+scriptencoding utf-8
+
+" =========== Begin Vundle =============
+set nocompatible              " required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/.vim/vundle_plugin')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" ============================================================================
+" Active plugins
+" You can disable or add new ones here:
+" Add all your plugins here (note older versions of Vundle used Bundle instead
+" of Plugin)
+
+" Plugins from github repos:
+
+" Better file browser
+Plugin 'scrooloose/nerdtree'
+" Code commenter
+Plugin 'scrooloose/nerdcommenter'
+" Class/module browser
+Plugin 'majutsushi/tagbar'
+" Code and files fuzzy finder
+Plugin 'kien/ctrlp.vim'
+" Extension to ctrlp, for fuzzy command finder
+Plugin 'fisadev/vim-ctrlp-cmdpalette'
+" Zen coding
+Plugin 'mattn/emmet-vim'
+" Maybe the best Git integration
+Plugin 'tpope/vim-fugitive'
+" Tab list panel
+Plugin 'kien/tabman.vim'
+" Airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Consoles as buffers
+Plugin 'rosenfeld/conque-term'
+" Pending tasks list
+Plugin 'fisadev/FixedTaskList.vim'
+" Surround
+Plugin 'tpope/vim-surround'
+" Autoclose
+Plugin 'Townk/vim-autoclose'
+" Indent text object
+Plugin 'michaeljsmith/vim-indent-object'
+" Python mode (indentation, doc, refactor, lints, code checking, motion and
+" operators, highlighting, run and ipdb breakpoints)
+Plugin 'klen/python-mode'
+" Better autocompletion
+Plugin 'Shougo/neocomplcache.vim'
+" Snippets manager (SnipMate), dependencies, and snippets repo
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+"Plugin 'honza/vim-snippets'
+Plugin 'garbas/vim-snipmate'
+" awesome colorscheme
+Plugin 'tomasr/molokai'
+" Git/mercurial/others diff icons on the side of the file lines
+Plugin 'mhinz/vim-signify'
+" Automatically sort python imports
+Plugin 'fisadev/vim-isort'
+" Drag visual blocks arround
+Plugin 'fisadev/dragvisuals.vim'
+" Window chooser
+Plugin 't9md/vim-choosewin'
+" Python and other languages code checker
+Plugin 'scrooloose/syntastic'
+" Paint css colors with the real color
+Plugin 'lilydjwg/colorizer'
+" Relative numbering of lines (0 is the current line)
+" (disabled by default because is very intrusive and can't be easily toggled
+" on/off. When the plugin is present, will always activate the relative 
+" numbering every time you go to normal mode. Author refuses to add a setting 
+" to avoid that)
+" Plugin 'myusuf3/numbers.vim'
+
+" javascript complete after install the plugin, you must cd the install
+" directory and run `npm install`, then add a .tern-project config file
+" the doc at http://ternjs.net/doc/manual.html#vim
+Plugin 'marijnh/tern_for_vim'
+" Golang Plugins
+Plugin 'fatih/vim-go'
+" JSX syntax highlight.
+Plugin 'mxw/vim-jsx'
+" Markdown syntastic highlight
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+" Markdown realtime preview
+" Before you want to use it, please run
+" `sudo npm -g install instant-markdown-d`
+Plugin 'suan/vim-instant-markdown'
+" Handlebars syntax highlighting
+Plugin 'mustache/vim-mustache-handlebars'
+" Vue.js syntax and highlighting
+Plugin 'tao12345666333/vim-vue'
+" True Sublime Text style multiple selections for Vim
+Plugin 'terryma/vim-multiple-cursors'
+
+" Plugins from vim-scripts repos:
+
+" Search results counter
+Plugin 'IndexedSearch'
+" XML/HTML tags navigation
+Plugin 'matchit.zip'
+" Gvim colorscheme
+Plugin 'Wombat'
+" Yank history navigation
+Plugin 'YankRing.vim'
+
+
+
+
+
+"Plugin 'tmhedberg/SimpylFold'
+""let g:SimpylFold_docstring_preview=1
+
+"Plugin 'vim-scripts/indentpython.vim'
+"Bundle 'Valloric/YouCompleteMe'
+
+"-Plugin 'scrooloose/syntastic'
+"Plugin 'nvie/vim-flake8'
+"Plugin 'jnurmine/Zenburn'
+"Plugin 'altercation/vim-colors-solarized'
+
+"Plugin 'jistr/vim-nerdtree-tabs'
+"let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+
+"if has('gui_running')
+"    set background=dark
+"    colorscheme solarized
+"else
+"    "colorscheme zenburn
+"endif
+
+
+" All of your Plugins must be added before the following line
+ call vundle#end()            " required
+ filetype plugin indent on    " required
+" ============= End Vundle =============
+
+
+" ========= Python Indent PEP8 =========
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+au BufNewFile,BufRead *.js,*.html,*.css <here>:</here>
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+" ======= End Python Indent PEP8 =======
+
+
+" === python with virtualenv support ===
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+" === python with virtualenv support ===
+
+
 "程式碼折疊
 "vim本身有支援程式碼折疊 可以使用空白鍵來折疊程式碼
 "只要在.vimrc中加入下列指令
 "folding:
 "set foldenable
+set nofoldenable
 set foldmethod=syntax
 set foldcolumn=0
 "nnoremap @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')
@@ -94,6 +278,32 @@ set listchars=tab:>·,trail:·
 
 " enable all Python syntax highlighting features
 let python_highlight_all = 1
+
+
+" Syntastic ------------------------------
+
+" show list of errors and warnings on the current file
+nmap <leader>e :Errors<CR>
+" turn to next or previous errors, after open errors list
+nmap <leader>n :lnext<CR>
+nmap <leader>p :lprevious<CR>
+" check also when just opened the file
+let g:syntastic_check_on_open = 1
+" syntastic checker for javascript.
+" eslint is the only tool support JSX.
+" If you don't need write JSX, you can use jshint.
+" And eslint is slow, but not a hindrance
+" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+" don't put icons on the sign column (it hides the vcs status icons of signify)
+let g:syntastic_enable_signs = 0
+" custom icons (enable them if you use a patched font, and enable the previous
+" setting)
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+
 
 
 " Set over length color
